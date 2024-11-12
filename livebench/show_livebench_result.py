@@ -92,18 +92,18 @@ def display_result_single(args, update_names=True):
         df = df[df["model"] != 'dracarys-72b-instruct']
         df = df[df["model"] != 'reflection-llama-3.1-70b']
 
-    if args.model_list is not None:
-        df = df[df["model"].isin([x.lower() for x in args.model_list])]
-        model_list_to_check = args.model_list
-    else:
-        model_list_to_check = set(df["model"])
-    for model in model_list_to_check:
-        df_model = df[df["model"] == model]
+    # if args.model_list is not None:
+    #     df = df[df["model"].isin([x.lower() for x in args.model_list])]
+    #     model_list_to_check = args.model_list
+    # else:
+    #     model_list_to_check = set(df["model"])
+    # for model in model_list_to_check:
+    #     df_model = df[df["model"] == model]
         
-        if len(df_model) < len(questions_all):
-            print('removing model', model, "has missing", len(questions_all) - len(df_model), "judgments")
-            df = df[df["model"] != model]
-            #raise ValueError(f'Invalid result, missing judgments (and possibly completions) for {len(questions_all) - len(df_model)} questions for model {model}.')
+    #     if len(df_model) < len(questions_all):
+    #         print('removing model', model, "has missing", len(questions_all) - len(df_model), "judgments")
+    #         df = df[df["model"] != model]
+    #         #raise ValueError(f'Invalid result, missing judgments (and possibly completions) for {len(questions_all) - len(df_model)} questions for model {model}.')
 
     df.to_csv('df_raw.csv')
 
