@@ -15,7 +15,11 @@ classifiers = [
     "License :: OSI Approved :: Apache Software License",
 ]
 dependencies = [
-    "anthropic>=0.36,<1.0”, "datasets", "levenshtein>=0.20.4", "lxml", "shortuuid",
+    "anthropic>=0.36,<1.0",
+    "datasets",
+    "levenshtein>=0.20.4",
+    "lxml",
+    "shortuuid",
 ]
 
 [project.optional-dependencies]
