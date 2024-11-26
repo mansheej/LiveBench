@@ -207,7 +207,7 @@ def gen_judgments(
     #input("Press Enter to confirm...")
 
     if "instruction_following" in bench_name:
-        nltk.download('punkt')
+        nltk.download('punkt', quiet=True)
         task_name = matches[0].question['task']
 
         if model_list is None:
