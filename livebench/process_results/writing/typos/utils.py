@@ -23,10 +23,10 @@ def typos_process_results(ground_truth: str, llm_answer: str, debug=False) -> in
             if tag == 'insert':
                 print("<inserted>", b[j1:j2], "::::", a[mi1:mi2], "-->", b[mj1:mj2])
 
-    if not int(ground_truth in llm_answer):
-        # print("Ground Truth: ")
-        # print(ground_truth)
-        print("LLM Answer: ")
-        print(llm_answer)
+    # if not int(ground_truth in llm_answer):
+    #     # print("Ground Truth: ")
+    #     # print(ground_truth)
+    #     print("LLM Answer: ")
+    #     print(llm_answer)
 
     return int(ground_truth in llm_answer)
