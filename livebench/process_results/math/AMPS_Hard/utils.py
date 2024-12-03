@@ -112,13 +112,13 @@ def is_equiv(x1: str, x2: str) -> bool:
                 sympy.SympifyError,
                 TypeError,
             ):
-                warnings.warn(f"couldn't parse one of {x1} or {x2}")
+                # warnings.warn(f"couldn't parse one of {x1} or {x2}")
                 return False
 
             try:
                 diff = parsed_x1 - parsed_x2
             except TypeError:
-                warnings.warn(f"couldn't subtract {x1} and {x2}")
+                # warnings.warn(f"couldn't subtract {x1} and {x2}")
                 return False
 
             try:
@@ -127,17 +127,18 @@ def is_equiv(x1: str, x2: str) -> bool:
                 else:
                     return False
             except ValueError:
-                warnings.warn(
-                    f"Had some trouble simplifying when comparing {x1} and {x2}"
-                )
+                # warnings.warn(
+                #     f"Had some trouble simplifying when comparing {x1} and {x2}"
+                # )
+                pass
     except TimeoutError:
-        warnings.warn(f"Timed out comparing {x1} and {x2}")
+        # warnings.warn(f"Timed out comparing {x1} and {x2}")
         return False
     except ImportError as e:
-        warnings.warn(e)
+        # warnings.warn(e)
         raise
     except Exception as e:
-        warnings.warn(f"Failed comparing {x1} and {x2} with {e}")
+        # warnings.warn(f"Failed comparing {x1} and {x2} with {e}")
         return False
 
 
