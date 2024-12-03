@@ -42,7 +42,7 @@ class TimeoutException(Exception):
 
 
 def timeout_handler(signum, frame):
-    print("alarm went off")
+    # print("alarm went off")
     # return
     raise TimeoutException
 
