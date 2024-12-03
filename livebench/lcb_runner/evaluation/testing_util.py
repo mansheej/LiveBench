@@ -209,7 +209,7 @@ def run_test(sample, test=None, debug=False, timeout=6):
         except:
             signal.alarm(0)
             e = sys.exc_info()
-            print(f"unable to get function error = {e}")
+            # print(f"unable to get function error = {e}")
             results.append(-2)
             return results, {
                 "error": repr(e),
@@ -352,9 +352,9 @@ def run_test(sample, test=None, debug=False, timeout=6):
                     except Exception as e:
                         # runtime error or took too long
                         signal.alarm(0)
-                        print(
-                            f"Call-based runtime error or time limit exceeded error = {repr(e)}{e}"
-                        )
+                        # print(
+                        #     f"Call-based runtime error or time limit exceeded error = {repr(e)}{e}"
+                        # )
                         results.append(-1)
                         if "timeoutexception" in repr(e).lower():
                             return results, {
