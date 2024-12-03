@@ -144,11 +144,11 @@ def play_a_match_gt(match: MatchSingle, output_file: str):
     }
     if "subtask" in question.keys():
         result["subtask"] = question["subtask"]
-    print(
-        f"question: {question_id}, turn: {turn}, model: {model}, "
-        f"score: {score}, "
+    # print(
+    #     f"question: {question_id}, turn: {turn}, model: {model}, "
+    #     f"score: {score}, "
        
-    )
+    # )
 
     if output_file:
         os.makedirs(os.path.dirname(output_file), exist_ok=True)
@@ -170,7 +170,7 @@ def gen_judgments(
     
     # Load answers
     model_answers = load_model_answers(answer_dir)
-    print('models:',model_answers.keys())
+    # print('models:',model_answers.keys())
 
     if model_list is None:
         models = get_model_list(answer_dir)
@@ -202,8 +202,8 @@ def gen_judgments(
     match_stat["output_path"] = output_file
 
     # Show match stats and prompt enter to continue
-    print("Stats:")
-    print(json.dumps(match_stat, indent=4))
+    # print("Stats:")
+    # print(json.dumps(match_stat, indent=4))
     #input("Press Enter to confirm...")
 
     if "instruction_following" in bench_name:
@@ -230,9 +230,9 @@ def gen_judgments(
                     "tstamp": time.time(),
                     "category": "instruction_following",
                 }
-                print(
-                    f"question: {question_id}, turn: {turn}, model: {model_id}, "
-                    f"score: {score}, ")
+                # print(
+                #     f"question: {question_id}, turn: {turn}, model: {model_id}, "
+                #     f"score: {score}, ")
 
                 if output_file:
                     os.makedirs(os.path.dirname(output_file), exist_ok=True)
@@ -241,7 +241,8 @@ def gen_judgments(
     else:
         # Play matches
         if parallel == 1:
-            for match in tqdm(matches):
+            # for match in tqdm(matches):
+            for match in matches:
                 results = play_a_match_func(match, output_file=output_file)
         else:
 
@@ -252,9 +253,10 @@ def gen_judgments(
             np.random.shuffle(matches)
 
             with ThreadPoolExecutor(parallel) as executor:
-                for match in tqdm(
-                    executor.map(play_a_match_wrapper, matches), total=len(matches)
-                ):
+                # for match in tqdm(
+                #     executor.map(play_a_match_wrapper, matches), total=len(matches)
+                # ):
+                for match in executor.map(play_a_match_wrapper, matches):
                     pass
 
     # De-duplicate and sort judgment file
@@ -352,7 +354,7 @@ if __name__ == "__main__":
             list_of_question_files = glob.glob(f"data/{args.bench_name}/**/question.jsonl", recursive=True)
 
         for question_file in list_of_question_files:
-            print(question_file)
+            # print(question_file)
             questions = load_questions_jsonl(question_file, release_set, args.question_begin, args.question_end)
             if args.first_n:
                 questions = questions[: args.first_n]

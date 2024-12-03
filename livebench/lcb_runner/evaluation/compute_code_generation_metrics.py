@@ -123,21 +123,21 @@ def evaluate_generations(
         for index in range(len(generations_list))
     ]
 
-    with tqdm(total=len(inputs)) as pbar:
-        with ProcessPoolExecutor(
-            max_workers=1 if debug else num_process_evaluate
-        ) as executor:
-            futures = {
-                executor.submit(evaluate_generations_by_problem, arg): index
-                for arg, index in inputs
-            }
+    # with tqdm(total=len(inputs)) as pbar:
+    with ProcessPoolExecutor(
+        max_workers=1 if debug else num_process_evaluate
+    ) as executor:
+        futures = {
+            executor.submit(evaluate_generations_by_problem, arg): index
+            for arg, index in inputs
+        }
 
-            results = {}
-            metadata = {}
-            for future in as_completed(futures):
-                index = futures[future]
-                results[index], metadata[index] = future.result()
-                pbar.update(1)
+        results = {}
+        metadata = {}
+        for future in as_completed(futures):
+            index = futures[future]
+            results[index], metadata[index] = future.result()
+            # pbar.update(1)
 
     assert len(results) == len(
         inputs

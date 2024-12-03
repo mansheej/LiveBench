@@ -50,7 +50,7 @@ def display_result_single(args, update_names=True):
             list_of_question_files = glob.glob(f"data/{args.bench_name}/**/question.jsonl", recursive=True)
 
         for question_file in list_of_question_files:
-            print(question_file)
+            # print(question_file)
             questions = load_questions_jsonl(question_file, release_set, None, None)
             questions_all.extend(questions)
 
@@ -59,7 +59,7 @@ def display_result_single(args, update_names=True):
     ]
 
     question_id_set = set([q['question_id'] for q in questions_all])
-    print(len(question_id_set))
+    # print(len(question_id_set))
 
     df_all = pd.concat((pd.read_json(f, lines=True) for f in input_files), ignore_index=True)
     df = df_all[["model", "score", "task", "category","question_id"]]
@@ -107,15 +107,15 @@ def display_result_single(args, update_names=True):
 
     df.to_csv('df_raw.csv')
 
-    print("\n########## All Tasks ##########")
+    # print("\n########## All Tasks ##########")
     df_1 = df[["model", "score", "task"]]
     df_1 = df_1.groupby(["model", "task"]).mean()
     df_1 = pd.pivot_table(df_1, index=['model'], values = "score", columns=["task"], aggfunc="sum")
     df_1 = df_1.round(3)
-    print(df_1.sort_values(by="model")[:60])
+    # print(df_1.sort_values(by="model")[:60])
     df_1.to_csv('all_tasks.csv')
 
-    print("\n########## All Groups ##########")
+    # print("\n########## All Groups ##########")
     df_1 = df[["model", "score", "category", "task"]]
     df_1 = df_1.groupby(["model", "task", "category"]).mean().groupby(["model","category"]).mean()
     df_1 = pd.pivot_table(df_1, index=['model'], values = "score", columns=["category"], aggfunc="sum")
@@ -125,7 +125,7 @@ def display_result_single(args, update_names=True):
     df_1.insert(0, 'average', first_col)
     df_1 = df_1.sort_values(by="average", ascending=False)
     df_1 = df_1.round(1)
-    print(df_1[:60])
+    # print(df_1[:60])
     df_1.to_csv('all_groups.csv')
 
 
